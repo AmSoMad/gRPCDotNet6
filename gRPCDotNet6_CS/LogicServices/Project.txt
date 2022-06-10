@@ -1,0 +1,29 @@
+
+** (종속성 - NuGet 패키지 관리(N)) 에서
+1. SoftBand.EntityManager
+2. Grpc
+3. System.Data.SqlClient 
+4. MySql.Data 
+5. Oracle.ManagedDataAccess.Core 
+
+
+
+** Startup.cs 내용 중에서
+ services.AddGrpc(); 문장 다음에 아래와 같은 명령문을 추가한다. 
+
+ services.AddGrpc(options => 
+ {; 
+     options.Interceptors.Add<GrpcServices.ServerLoggerInterceptor>(); 
+ }); 
+ GrpcServices.Startup.ConfigureServices(services); 
+ 
+app.UseEndpoints(endpoints =>
+{
+   GrpcBindServer.GrpcBindService.UseEndpoints(endpoints);
+
+
+** Properties 안에 launchsettings.json 파일 내용에서  port번호를 환경에 따라 변경   "applicationUrl": "http://localhost:5000;https://localhost:5001" 
+
+<ItemGroup>
+  <Protobuf Include="Protos\Example.proto" GrpcServices="Server" />
+</ItemGroup>

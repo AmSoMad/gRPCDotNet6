@@ -1,0 +1,29 @@
+syntax = "proto3"; 
+
+option csharp_namespace = "com.example";
+
+package com.softband.Example; 
+
+message GrpcDecimal {
+    int64 units = 1;
+    sfixed32 nanos = 2;
+}
+
+message ExampleRequest { 
+   int32 pageIndex = 1; 
+   int32 pageSize = 2;
+   bool isDescending = 3;
+} 
+
+message ExampleResponse { 
+   string result = 1; 
+} 
+
+service ExampleService {
+   rpc UnaryCall(ExampleRequest) returns (ExampleResponse) {}
+   rpc StreamimgFromServer(ExampleRequest) returns (stream ExampleResponse)  {}
+   rpc StreamingFromClient(stream ExampleRequest) returns (ExampleResponse) {}
+   rpc StreamingBothways(stream ExampleRequest) returns (stream ExampleResponse) {}
+}
+
+
